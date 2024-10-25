@@ -1,11 +1,12 @@
 {
     "compilerOptions": {
         "target": "es6",
-        "module": "ESNext",
-        "moduleResolution": "node",
+        "module": "commonjs",
         "outDir": "./dist",
-        "rootDir": "./src",  // Cambiado para que apunte a src directamente
-        "lib": ["ESNext"],
+        "rootDir": "./src",
+        "lib": [
+            "ESNext"
+        ],
         "strict": false,
         "sourceMap": true,
         "esModuleInterop": true,
@@ -13,7 +14,7 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true
     },
-    "include": ["./src/**/*.ts"],  // Asegúrate de que la ruta sea correcta
-    "exclude": ["./dist"]  // Excluir la carpeta dist
+    "include": [
+        "src/**/*.ts"
+    ]
 }
-
