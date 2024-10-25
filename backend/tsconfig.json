@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "outDir": "./dist",
+        "rootDir": "./src",  // Cambiado para que apunte a src directamente
+        "lib": ["ESNext"],
+        "strict": false,
+        "sourceMap": true,
+        "esModuleInterop": true,
+        "declaration": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true
+    },
+    "include": ["./src/**/*.ts"],  // Asegúrate de que la ruta sea correcta
+    "exclude": ["./dist"]  // Excluir la carpeta dist
+}
+
