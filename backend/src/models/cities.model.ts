@@ -14,7 +14,7 @@ import {
 import { ProvinceClass } from "./provinces.model";
 
 @Table ({tableName: 'cities', timestamps:false})
-export class City extends Model<City> {
+export class CityClass extends Model<CityClass> {
     @PrimaryKey
     @AutoIncrement
     @Column({

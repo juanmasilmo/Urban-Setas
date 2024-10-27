@@ -15,13 +15,14 @@ import RolClass from "./roles.model";
 
 @Table({
   tableName: "users",
-  timestamps: true,
+  timestamps: false, // Cambiado a 'false' para consistencia
 })
-class UsersClass extends Model {
+class UsersClass extends Model<UsersClass> {
   @PrimaryKey
   @AutoIncrement
   @Column({
     type: DataType.INTEGER,
+    allowNull: false,
   })
   idUser: number;
 
@@ -41,18 +42,18 @@ class UsersClass extends Model {
   @Column({
     type: DataType.STRING(100),
     allowNull: false,
-    validate: {
-      isEmail: true,
-    },
+  })
+  @Validate({
+    isEmail: true, // Valida que el formato sea de email
   })
   email: string;
 
   @Column({
     type: DataType.STRING(20),
     allowNull: false,
-    validate: {
-      isNumeric: true,
-    },
+  })
+  @Validate({
+    isNumeric: true, // Valida que contenga solo números
   })
   phone: string;
 
@@ -60,13 +61,11 @@ class UsersClass extends Model {
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
-    validate: {
-      isNumeric: true,
-    },
   })
   idRol: number;
 
-  @BelongsTo(() => RolClass) // Esto establece la relación entre Client y Rol
+  @BelongsTo(() => RolClass) // Establece la relación entre User y Rol
   rol: RolClass; // Este será el objeto Rol relacionado
 }
+
 export default UsersClass;

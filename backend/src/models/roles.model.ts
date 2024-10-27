@@ -5,18 +5,13 @@ import {
   DataType,
   PrimaryKey,
   AutoIncrement,
-  Unique,
-  AllowNull,
-  Validate,
-  BelongsTo,
-  ForeignKey,
 } from "sequelize-typescript";
 
 @Table({
   tableName: "roles",
-  timestamps: true,
+  timestamps: false, // Cambiado a 'false' para consistencia con otros modelos
 })
-class RolClass extends Model {
+class RolClass extends Model<RolClass> {
   @PrimaryKey
   @AutoIncrement
   @Column({
@@ -31,4 +26,5 @@ class RolClass extends Model {
   })
   rolName: string;
 }
+
 export default RolClass;

@@ -12,13 +12,14 @@ import {
 
 @Table({
   tableName: "clients",
-  timestamps: true, //es para poder añadir createdAT y UpdatedAT
+  timestamps: false, // Ajustado a 'false' para omitir createdAt y updatedAt
 })
-class ClientClass extends Model {
+class ClientClass extends Model<ClientClass> {
   @PrimaryKey
   @AutoIncrement
   @Column({
     type: DataType.INTEGER,
+    allowNull: false,
   })
   idClient: number;
 
@@ -38,18 +39,18 @@ class ClientClass extends Model {
   @Column({
     type: DataType.STRING(100),
     allowNull: false,
-    validate: {
-      isEmail: true, //para validar que el formato sea email
-    },
+  })
+  @Validate({
+    isEmail: true, // Valida que el formato sea de email
   })
   clientEmail: string;
 
   @Column({
     type: DataType.STRING(20),
     allowNull: false,
-    validate: {
-      isNumeric: true, // para validar que tenga solo num
-    },
+  })
+  @Validate({
+    isNumeric: true, // Valida que contenga solo números
   })
   clientPhone: string;
 
@@ -59,4 +60,5 @@ class ClientClass extends Model {
   })
   clientAddress: string;
 }
+
 export default ClientClass;
