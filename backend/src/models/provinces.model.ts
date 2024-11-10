@@ -9,11 +9,14 @@ import {
   ForeignKey,
   BelongsTo,
 } from "sequelize-typescript";
-import {CountryClass} from "./countries.model";
-import {CityClass} from "./cities.model"
+import CountryClass from "./countries.model";
+import CityClass from "./cities.model";
 
-@Table({ tableName: "provinces", timestamps: false })
-export class ProvinceClass extends Model<ProvinceClass> {
+@Table({
+  tableName: "provinces",
+  timestamps: false,
+})
+class ProvinceClass extends Model {
   @PrimaryKey
   @AutoIncrement
   @Column({
@@ -31,8 +34,12 @@ export class ProvinceClass extends Model<ProvinceClass> {
   @ForeignKey(() => CountryClass)
   @Column({ type: DataType.INTEGER, allowNull: false })
   idCountry: number;
+
   @BelongsTo(() => CountryClass)
   country: CountryClass;
+
   @HasMany(() => CityClass)
   cities: CityClass[];
 }
+
+export default ProvinceClass;

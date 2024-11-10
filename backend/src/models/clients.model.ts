@@ -6,15 +6,22 @@ import {
   PrimaryKey,
   AutoIncrement,
   Unique,
-  AllowNull,
   Validate,
+  ForeignKey,
+  BelongsTo,
+  BelongsToMany,
 } from "sequelize-typescript";
+import CountryClass from "./countries.model";
+import ProvinceClass from "./provinces.model";
+import CityClass from "./cities.model";
+import ProductClass from "./products.model";
+import ClientProduct from "./clientsProducts.model";
 
 @Table({
   tableName: "clients",
-  timestamps: false, // Ajustado a 'false' para omitir createdAt y updatedAt
+  timestamps: false,
 })
-class ClientClass extends Model<ClientClass> {
+class Client extends Model {
   @PrimaryKey
   @AutoIncrement
   @Column({
@@ -36,21 +43,17 @@ class ClientClass extends Model<ClientClass> {
   clientLastname: string;
 
   @Unique
+  @Validate({ isEmail: true })
   @Column({
     type: DataType.STRING(100),
     allowNull: false,
   })
-  @Validate({
-    isEmail: true, // Valida que el formato sea de email
-  })
   clientEmail: string;
 
+  @Validate({ isNumeric: true })
   @Column({
     type: DataType.STRING(20),
     allowNull: false,
-  })
-  @Validate({
-    isNumeric: true, // Valida que contenga solo números
   })
   clientPhone: string;
 
@@ -59,6 +62,42 @@ class ClientClass extends Model<ClientClass> {
     allowNull: false,
   })
   clientAddress: string;
+
+  // Relación con Ciudad
+  @ForeignKey(() => CityClass)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  idCity: number;
+
+  @BelongsTo(() => CityClass)
+  city: CityClass;
+
+  // Relación con Provincia
+  @ForeignKey(() => ProvinceClass)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  idProvince: number;
+
+  @BelongsTo(() => ProvinceClass)
+  province: ProvinceClass;
+
+  // Relación con País
+  @ForeignKey(() => CountryClass)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  idCountry: number;
+
+  @BelongsTo(() => CountryClass)
+  country: CountryClass;
+
+  @BelongsToMany(() => ProductClass, () => ClientProduct)
+  products!: ProductClass[];
 }
 
-export default ClientClass;
+export default Client;

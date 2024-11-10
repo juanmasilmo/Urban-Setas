@@ -6,18 +6,17 @@ import {
   PrimaryKey,
   AutoIncrement,
   Unique,
-  AllowNull,
   Validate,
-  BelongsTo,
   ForeignKey,
+  BelongsTo,
 } from "sequelize-typescript";
 import RolClass from "./roles.model";
 
 @Table({
   tableName: "users",
-  timestamps: false, // Cambiado a 'false' para consistencia
+  timestamps: false,
 })
-class UsersClass extends Model<UsersClass> {
+export default class UserClass extends Model<UserClass> {
   @PrimaryKey
   @AutoIncrement
   @Column({
@@ -30,42 +29,30 @@ class UsersClass extends Model<UsersClass> {
     type: DataType.STRING(100),
     allowNull: false,
   })
-  name: string;
-
-  @Column({
-    type: DataType.STRING(100),
-    allowNull: false,
-  })
-  lastname: string;
+  userName: string;
 
   @Unique
+  @Validate({ isEmail: true })
   @Column({
     type: DataType.STRING(100),
     allowNull: false,
-  })
-  @Validate({
-    isEmail: true, // Valida que el formato sea de email
   })
   email: string;
 
   @Column({
-    type: DataType.STRING(20),
+    type: DataType.STRING(100),
     allowNull: false,
   })
-  @Validate({
-    isNumeric: true, // Valida que contenga solo números
-  })
-  phone: string;
+  password: string;
 
+  // Relación: un Usuario pertenece a un Rol
   @ForeignKey(() => RolClass)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
-  idRol: number;
+  idRol: number; // Clave foránea que referencia a RolClass
 
-  @BelongsTo(() => RolClass) // Establece la relación entre User y Rol
-  rol: RolClass; // Este será el objeto Rol relacionado
+  @BelongsTo(() => RolClass)
+  role: RolClass;
 }
-
-export default UsersClass;

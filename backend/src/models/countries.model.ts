@@ -7,24 +7,29 @@ import {
   AutoIncrement,
   HasMany,
 } from "sequelize-typescript";
-import { ProvinceClass } from "./provinces.model";
+import ProvinceClass from "./provinces.model";
 
-@Table({ tableName: 'countries', timestamps: false }) // Corrección de 'timestaps' a 'timestamps'
-export class CountryClass extends Model<CountryClass> {
+@Table({
+  tableName: "countries",
+  timestamps: false,
+})
+class CountryClass extends Model {
   @PrimaryKey
   @AutoIncrement
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
-  idCountry: number;
+  idCountry!: number;
 
   @Column({
     type: DataType.STRING(100),
     allowNull: false,
   })
-  countryName: string;
+  countryName!: string;
 
   @HasMany(() => ProvinceClass)
-  provinces: ProvinceClass[];
+  provinces!: ProvinceClass[];
 }
+
+export default CountryClass;

@@ -1,36 +1,40 @@
 import {
-    Table,
-    Column,
-    Model,
-    DataType,
-    PrimaryKey,
-    AutoIncrement,
-    Unique,
-    AllowNull,
-    Validate,
-    ForeignKey,
-    BelongsTo,
-  } from "sequelize-typescript";
-import { ProvinceClass } from "./provinces.model";
+  Table,
+  Column,
+  Model,
+  DataType,
+  PrimaryKey,
+  AutoIncrement,
+  ForeignKey,
+  BelongsTo,
+} from "sequelize-typescript";
+import ProvinceClass from "./provinces.model";
 
-@Table ({tableName: 'cities', timestamps:false})
-export class CityClass extends Model<CityClass> {
-    @PrimaryKey
-    @AutoIncrement
-    @Column({
-        type:DataType.INTEGER, allowNull:false
-    })
-    idCity: number;
+@Table({
+  tableName: "cities",
+  timestamps: false,
+})
+class City extends Model {
+  @PrimaryKey
+  @AutoIncrement
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  idCity: number;
 
-        @Column({
-            type:DataType.STRING(100), allowNull:false
-        })
-        cityName: string;
+  @Column({
+    type: DataType.STRING(100),
+    allowNull: false,
+  })
+  cityName: string;
 
-        @ForeignKey(()=> ProvinceClass)
-        @Column({type:DataType.INTEGER, allowNull:false})
-        idProvince:number;
+  @ForeignKey(() => ProvinceClass)
+  @Column({ type: DataType.INTEGER, allowNull: false })
+  idProvince: number;
 
-        @BelongsTo(()=> ProvinceClass)
-        province: ProvinceClass;
+  @BelongsTo(() => ProvinceClass)
+  province: ProvinceClass;
 }
+
+export default City;

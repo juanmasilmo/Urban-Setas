@@ -1,4 +1,4 @@
-// middlewares/cityMiddleware.ts
+// middleware/cities.middleware.ts
 import {
   body,
   param,
@@ -6,7 +6,7 @@ import {
   ValidationChain,
 } from "express-validator";
 
-// Middleware para validar la creación y actualización de ciudades
+// Validar los campos de la ciudad
 export const validateCity: ValidationChain[] = [
   body("cityName")
     .isString()
@@ -20,7 +20,7 @@ export const validateCity: ValidationChain[] = [
     .withMessage("El ID de la provincia no puede estar vacío"),
 ];
 
-// Middleware para validar el ID de la ciudad en rutas específicas
+// Validar el parámetro ID
 export const validateCityId: ValidationChain[] = [
   param("id")
     .isNumeric()

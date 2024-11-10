@@ -1,37 +1,32 @@
-// routes/city.routes.ts
+//cities.routes.ts
 import { Router } from "express";
 import {
-  createCity,
   getAllCities,
   getCityById,
+  createCity,
   updateCity,
   deleteCity,
-} from "../controllers/city.controller";
-import { validateCity, validateCityId } from "../middleware/city.middleware";
-import { inputErrors } from "../middleware/inputErrors.middleware";
+} from "../controllers/cities.controller";
+import { check } from "express-validator";
 
 const router = Router();
 
-// Crear una nueva ciudad
-router.post("/", validateCity, inputErrors, createCity);
-
-// Obtener todas las ciudades
-router.get("/", getAllCities);
-
-// Obtener una ciudad por ID
-router.get("/:id", validateCityId, inputErrors, getCityById);
-
-// Actualizar una ciudad
+router.get("/", getAllCities); // Obtener todas las ciudades
+router.post(
+  "/",
+  [check("cityName").notEmpty().withMessage("El nombre es obligatorio")],
+  createCity
+); // Crear una ciudad
 router.put(
   "/:id",
-  validateCityId,
-  inputErrors,
-  validateCity,
-  inputErrors,
+  [
+    check("cityName")
+      .optional()
+      .notEmpty()
+      .withMessage("El nombre no puede estar vacío"),
+  ],
   updateCity
-);
-
-// Eliminar una ciudad
-router.delete("/:id", validateCityId, inputErrors, deleteCity);
+); // Actualizar una ciudad por ID
+router.delete("/:id", deleteCity); // Soft delete de una ciudad por ID
 
 export default router;

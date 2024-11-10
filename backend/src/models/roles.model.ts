@@ -5,13 +5,15 @@ import {
   DataType,
   PrimaryKey,
   AutoIncrement,
+  HasMany,
 } from "sequelize-typescript";
+import UserClass from "./users.model";
 
 @Table({
   tableName: "roles",
-  timestamps: false, // Cambiado a 'false' para consistencia con otros modelos
+  timestamps: false,
 })
-class RolClass extends Model<RolClass> {
+export default class RolClass extends Model<RolClass> {
   @PrimaryKey
   @AutoIncrement
   @Column({
@@ -25,6 +27,8 @@ class RolClass extends Model<RolClass> {
     allowNull: false,
   })
   rolName: string;
-}
 
-export default RolClass;
+  // Relación: un Rol puede tener varios Usuarios
+  @HasMany(() => UserClass)
+  users: UserClass[];
+}

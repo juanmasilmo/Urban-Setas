@@ -1,14 +1,14 @@
-import { Request, Response } from "express";
+// controllers/base.controller.ts
+/*import { Request, Response } from "express";
 import { Model, ModelCtor } from "sequelize-typescript";
 
 interface BaseAttributes {
   id: number;
 }
-// BaseController es una clase genérica que extiende Model, y se asegura de que el tipo del modelo sea compatible con los métodos de Sequelize
-class BaseController<T extends Model> {
+
+class BaseController<T extends Model<T>> {
   private model: ModelCtor<T>;
 
-  // Constructor que recibe un modelo de tipo ModelCtor<T>, permitiendo tipado completo en TypeScript
   constructor(model: ModelCtor<T>) {
     this.model = model;
   }
@@ -36,40 +36,52 @@ class BaseController<T extends Model> {
       }); // Manejo de errores
     }
   }
-  // Declaración de método para buscar por ID
+
+  // Método para buscar una instancia por ID
   async findById(req: Request, res: Response) {
     try {
-      const instance = await this.model.findByPk(req.params.id);
-      if (instance) {
-        res.status(200).json(instance);
-      } else {
-        res
-          .status(404)
-          .json({ message: `${this.model.name} No se encontró la instancia` });
-      }
+      const id = Number(req.params.id); // Conversión explícita
+      const instance = await this.model.findByPk(id);
+      res
+        .status(instance ? 200 : 404)
+        .json(instance || { message: `${this.model.name} no encontrado` });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
   }
 
-  /*async update(req: Request, res: Response) {
+  // Método para actualizar una instancia
+  async update(req: Request, res: Response) {
     try {
-      const id = Number(req.params.id);
+      const id = Number(req.params.id); // Conversión explícita
       const [updated] = await this.model.update(req.body, {
+        where: { id }, // Verifica que 'id' sea el nombre de la columna primaria en tu modelo
+      });
+      const updatedInstance = updated ? await this.model.findByPk(id) : null;
+      res
+        .status(updatedInstance ? 200 : 404)
+        .json(
+          updatedInstance || { message: `${this.model.name} no encontrado` }
+        );
+    } catch (error) {
+      res.status(500).json({ message: (error as Error).message }); // Añadí una conversión explícita al tipo Error
+    }
+  }
+
+  // Método para eliminar una instancia
+  async delete(req: Request, res: Response) {
+    try {
+      const id = Number(req.params.id); // Conversión explícita
+      const deleted = await this.model.destroy({
         where: { id },
       });
-      if (updated) {
-        const updatedInstance = await this.model.findByPk(req.params.id);
-        res.status(200).json(updatedInstance);
-      } else {
-        res
-          .status(404)
-          .json({ message: `${this.model.name} No se encontró el id` });
-      }
+      res
+        .status(deleted ? 204 : 404)
+        .json(deleted ? null : { message: `${this.model.name} no encontrado` });
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      res.status(500).json({ message: (error as Error).message }); // Añadí una conversión explícita al tipo Error
     }
-  }*/
+  }
 }
 
-export default BaseController;
+export default BaseController;*/

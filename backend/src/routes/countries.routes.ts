@@ -5,14 +5,15 @@ import {
   getCountries,
   getCountryById,
   updateCountry,
-} from "../controllers/country.controller";
+} from "../controllers/countries.controller";
 import {
   validateCountry,
   validateCountryId,
-} from "../middleware/country.middleware";
+} from "../middleware/countries.middleware";
 import { inputErrors } from "../middleware/inputErrors.middleware";
 
 const router = Router();
+
 router.post("/", validateCountry, inputErrors, createCountry);
 router.get("/", getCountries);
 router.get("/:id", validateCountryId, inputErrors, getCountryById);
@@ -27,4 +28,3 @@ router.put(
 router.delete("/:id", validateCountryId, inputErrors, deleteCountry);
 
 export default router;
-
