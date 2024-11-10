@@ -1,0 +1,11 @@
+idClient,clientName,clientLastname,clientEmail,clientPhone,clientAddress,idCity,idProvince,idCountry
+1,Juan,Pérez,juan.perez@example.com,123456789,Av. Siempre Viva 123,1,1,1
+2,María,Gómez,maria.gomez@example.com,987654321,Calle Ficticia 456,2,2,2
+3,Carlos,López,carlos.lopez@example.com,111223344,Plaza Mayor 789,3,3,3
+4,Ana,Martínez,ana.martinez@example.com,555666777,Av. Libertador 101,4,4,4
+5,Pedro,Jiménez,pedro.jimenez@example.com,888999000,Calle Real 202,5,5,5
+6,Lucía,Díaz,lucia.diaz@example.com,333444555,Callejón del Sol 303,6,6,6
+7,José,Romero,jose.romero@example.com,666777888,Av. Los Andes 404,7,7,7
+8,Sofía,Martínez,sofia.martinez@example.com,222333444,Calle Nueva 505,8,8,8
+9,Raúl,Morales,raul.morales@example.com,999000111,Av. Reforma 606,9,9,9
+10,Laura,Fernández,laura.fernandez@example.com,444555666,Calle de la Luna 707,10,10,10

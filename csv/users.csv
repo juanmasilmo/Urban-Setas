@@ -1,0 +1,11 @@
+"idUser","userName","email","password","idRol"
+1,"john_doe","john.doe@example.com","password123",1
+2,"jane_doe","jane.doe@example.com","password456",1
+3,"admin","admin@example.com","adminpassword",1
+4,"peter_p","peter.p@example.com","peterpassword",2
+5,"mary_m","mary.m@example.com","marypassword",2
+6,"alice_a","alice.a@example.com","alicepassword",2
+7,"bob_b","bob.b@example.com","bobpassword",2
+8,"claire_c","claire.c@example.com","clairepassword",2
+9,"jack_j","jack.j@example.com","jackpassword",2
+10,"olivia_o","olivia.o@example.com","oliviapassword",2
