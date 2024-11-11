@@ -6,9 +6,9 @@ import ProductClass from "../models/products.model";
 export const getAllProducts = async (req: Request, res: Response) => {
   try {
     const products = await ProductClass.findAll();
-    res.status(200).json(products); // Retornar todos los productos encontrados con estado 200
+    res.status(200).json(products);
   } catch (error) {
-    res.status(500).json({ error: (error as Error).message }); // Asegurarse de capturar correctamente el mensaje de error
+    res.status(500).json({ error: (error as Error).message });
   }
 };
 
@@ -16,9 +16,9 @@ export const getAllProducts = async (req: Request, res: Response) => {
 export const createProduct = async (req: Request, res: Response) => {
   try {
     const product = await ProductClass.create(req.body);
-    res.status(201).json(product); // Retornar el producto creado con estado 201
+    res.status(201).json(product);
   } catch (error) {
-    res.status(500).json({ error: (error as Error).message }); // Asegurarse de capturar correctamente el mensaje de error
+    res.status(500).json({ error: (error as Error).message });
   }
 };
 
@@ -27,11 +27,11 @@ export const getProductById = async (req: Request, res: Response) => {
   try {
     const product = await ProductClass.findByPk(req.params.id);
     if (product) {
-      res.status(200).json(product); // Retornar el producto encontrado con estado 200
+      res.status(200).json(product);
     } else {
-      res.status(404).json({ message: "Producto no encontrado" }); // Retornar un mensaje de error 404 si no se encuentra el producto
+      res.status(404).json({ message: "Producto no encontrado" });
     }
   } catch (error) {
-    res.status(500).json({ error: (error as Error).message }); // Asegurarse de capturar correctamente el mensaje de error
+    res.status(500).json({ error: (error as Error).message });
   }
 };
