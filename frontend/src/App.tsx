@@ -1,16 +1,11 @@
-import DropdownButton from "./assets/components/dropdownButton.js";
+import Dashboard from "./assets/components/dashboard.tsx";
+import Header from "./assets/components/header.tsx";
 
 function App() {
   return (
     <>
-      <DropdownButton></DropdownButton>
-      <div className="bg-secondary">
-        <p>holis</p>
-        <div className="bg-primary">
-          {/*el className primary esta en el archivo de tailwind.config.js que se crea cuando se ejecuta el comando npm tailwind init -p*/}
-          <h1 className="text-3xl font-bold underline">Hello world!</h1>
-        </div>
-      </div>
+     <Header/>
+      <Dashboard />
     </>
   );
 }
