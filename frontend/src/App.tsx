@@ -1,46 +1,34 @@
-import React, { useState } from "react";
-import Header from "./assets/components/Header";
-import { useAuth } from "./hooks/useAuth";
-import { Product } from "./types";
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Sidebar from './components/SideBar';
+import Dashboard from './components/Dashboard';
+import Productos from './components/ProductList';
+import Ventas from './components/Ventas';
+import Clientes from './components/Clientes';
+import Ajustes from './components/Ajustes';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 const App: React.FC = () => {
-  const { isLoggedIn, login, logout } = useAuth();
-  const [products, setProducts] = useState<Product[]>([
-    {
-      id: 1,
-      name: "Producto 1",
-      price: 100,
-      stock: 10,
-      image: "https://via.placeholder.com/150",
-    },
-    {
-      id: 2,
-      name: "Producto 2",
-      price: 200,
-      stock: 5,
-      image: "https://via.placeholder.com/150",
-    },
-  ]);
-
   return (
-    <div className="container mx-auto">
-      <Header isLoggedIn={isLoggedIn} products={products} />
-      {!isLoggedIn ? (
-        <button
-          onClick={login}
-          className="bg-blue-500 text-white px-4 py-2 rounded mt-4"
-        >
-          Iniciar sesión
-        </button>
-      ) : (
-        <button
-          onClick={logout}
-          className="bg-red-500 text-white px-4 py-2 rounded mt-4"
-        >
-          Cerrar sesión
-        </button>
-      )}
-    </div>
+    <Router>
+      <div className="flex flex-col h-screen">
+        <Header /> {/* Aquí se integra el Header */}
+        <div className="flex flex-1">
+          <Sidebar />
+          <div className="w-full p-6">
+            <Routes>
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/productos" element={<Productos />} />
+              <Route path="/ventas" element={<Ventas />} />
+              <Route path="/clientes" element={<Clientes />} />
+              <Route path="/ajustes" element={<Ajustes />} />
+            </Routes>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    </Router>
   );
 };
 
