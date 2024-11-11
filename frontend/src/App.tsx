@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Header from "./components/Header";
+import Header from "./assets/components/Header";
 import { useAuth } from "./hooks/useAuth";
 import { Product } from "./types";
 
