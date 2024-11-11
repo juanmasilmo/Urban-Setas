@@ -1,20 +1,23 @@
-import React, { useState } from "react";
+import React from "react";
 import Login from "./Login";
 import Cart from "./Cart";
 
-const Header: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+interface HeaderProps {
+  isLoggedIn: boolean;
+  products: {
+    id: number;
+    name: string;
+    price: number;
+    stock: number;
+    image: string;
+  }[];
+}
 
+const Header: React.FC<HeaderProps> = ({ isLoggedIn, products }) => {
   return (
     <header className="flex items-center justify-between p-4 bg-gradient-to-r from-green-500 to-yellow-500 text-white shadow-md">
-      {/* Placeholder para el menú desplegable */}
-      <div className="text-xl font-semibold">Menú</div>
-
-      {/* Nombre de la página */}
-      <h1 className="text-2xl font-bold">Mi Página</h1>
-
-      {/* Mostrar carrito si está logueado */}
-      {isLoggedIn ? <Cart /> : <Login />}
+      <h1 className="text-2xl font-bold">Mi Tienda</h1>
+      {isLoggedIn ? <Cart products={products} /> : <Login />}
     </header>
   );
 };

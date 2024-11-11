@@ -1,30 +1,49 @@
-import React from "react";
-import Cart from "./Cart";
+import React, { useState } from "react";
+import axios from "axios";
 
-interface HeaderProps {
-  isLoggedIn: boolean;
-  products: {
-    id: number;
-    name: string;
-    price: number;
-    stock: number;
-    image: string;
-  }[];
-}
+const Login: React.FC = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-const Header: React.FC<HeaderProps> = ({ isLoggedIn, products }) => {
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("/api/login", { username, password });
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token);
+        // Redirigir o cambiar el estado de login
+      }
+    } catch (err) {
+      setError("Credenciales inválidas");
+    }
+  };
+
   return (
-    <header className="flex items-center justify-between p-4 bg-gradient-to-r from-green-500 to-yellow-500 text-white shadow-md">
-      {/* Placeholder para el menú desplegable */}
-      <div className="text-xl font-semibold">Menú</div>
-
-      {/* Nombre de la página */}
-      <h1 className="text-2xl font-bold">Mi Página</h1>
-
-      {/* Mostrar carrito si está logueado */}
-      {isLoggedIn ? <Cart products={products} /> : <Login />}
-    </header>
+    <form onSubmit={handleLogin} className="flex flex-col gap-4">
+      <input
+        type="text"
+        placeholder="Usuario"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        className="border px-4 py-2"
+      />
+      <input
+        type="password"
+        placeholder="Contraseña"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        className="border px-4 py-2"
+      />
+      {error && <div className="text-red-500">{error}</div>}
+      <button
+        type="submit"
+        className="bg-green-500 text-white px-4 py-2 rounded"
+      >
+        Iniciar sesión
+      </button>
+    </form>
   );
 };
 
-export default Header;
+export default Login;

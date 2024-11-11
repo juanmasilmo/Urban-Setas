@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Header from "./Header";
-import Cart from "./Header";
+import Cart from "./Cart";
 
 interface Product {
   id: number;

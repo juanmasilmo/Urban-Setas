@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import axios from "axios";
 
 interface Product {
   id: number;
   name: string;
   price: number;
   stock: number;
+  image: string;
 }
 
 interface CartProps {
@@ -13,73 +13,79 @@ interface CartProps {
 }
 
 const Cart: React.FC<CartProps> = ({ products }) => {
-  const [cartItems, setCartItems] = useState<
-    { product: Product; quantity: number }[]
-  >([]);
-  const [total, setTotal] = useState(0);
+  const [cartItems, setCartItems] = useState<{ [key: number]: number }>({});
 
-  const addToCart = (product: Product) => {
-    const existingItem = cartItems.find(
-      (item) => item.product.id === product.id
-    );
-
-    if (existingItem) {
-      existingItem.quantity += 1;
-    } else {
-      cartItems.push({ product, quantity: 1 });
-    }
-
-    setCartItems([...cartItems]);
-    calculateTotal();
+  const addItem = (id: number) => {
+    setCartItems((prev) => ({
+      ...prev,
+      [id]: (prev[id] || 0) + 1,
+    }));
   };
 
-  const calculateTotal = () => {
-    const newTotal = cartItems.reduce(
-      (acc, item) => acc + item.product.price * item.quantity,
-      0
-    );
-    setTotal(newTotal);
+  const removeItem = (id: number) => {
+    setCartItems((prev) => {
+      const updated = { ...prev };
+      if (updated[id] > 1) {
+        updated[id] -= 1;
+      } else {
+        delete updated[id];
+      }
+      return updated;
+    });
   };
 
-  const confirmPurchase = () => {
-    axios
-      .post("/api/confirm-purchase", {
-        items: cartItems.map((item) => ({
-          productId: item.product.id,
-          quantity: item.quantity,
-        })),
-      })
-      .then(() => {
-        alert("Compra confirmada");
-        // Actualizar el stock después de la compra
-        setCartItems([]);
-        setTotal(0);
-      })
-      .catch((error) => {
-        console.error("Error confirming purchase:", error);
-      });
+  const calculateSubtotal = () => {
+    return products.reduce((total, product) => {
+      const quantity = cartItems[product.id] || 0;
+      return total + product.price * quantity;
+    }, 0);
   };
 
   return (
-    <div className="p-4 border rounded-lg shadow-md bg-white">
+    <div className="p-4 bg-gray-100 rounded-md shadow-lg w-full md:w-1/3">
       <h2 className="text-xl font-bold mb-4">Carrito de Compras</h2>
-      <ul>
-        {cartItems.map((item, index) => (
-          <li key={index} className="flex justify-between items-center mb-2">
-            <span>{item.product.name}</span>
-            <span>
-              {item.quantity} x ${item.product.price.toFixed(2)}
-            </span>
-          </li>
-        ))}
-      </ul>
-      <p className="text-lg font-semibold mt-4">Total: ${total.toFixed(2)}</p>
-      <button
-        className="bg-green-500 text-white p-2 rounded mt-4"
-        onClick={confirmPurchase}
-      >
-        Confirmar compra
-      </button>
+
+      {products.map(
+        (product) =>
+          cartItems[product.id] > 0 && (
+            <div
+              key={product.id}
+              className="flex justify-between items-center mb-2"
+            >
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-16 h-16 mr-2 object-cover"
+              />
+              <span>{product.name}</span>
+              <span>${product.price.toFixed(2)}</span>
+              <div className="flex items-center">
+                <button
+                  onClick={() => removeItem(product.id)}
+                  className="bg-red-500 text-white px-2 py-1 rounded"
+                >
+                  -
+                </button>
+                <span className="mx-2">{cartItems[product.id]}</span>
+                <button
+                  onClick={() => addItem(product.id)}
+                  className="bg-green-500 text-white px-2 py-1 rounded"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+          )
+      )}
+
+      <div className="mt-4">
+        <h3 className="font-bold">
+          Subtotal: ${calculateSubtotal().toFixed(2)}
+        </h3>
+        <button className="mt-2 bg-green-700 text-white p-2 rounded w-full">
+          Confirmar Compra
+        </button>
+      </div>
     </div>
   );
 };
