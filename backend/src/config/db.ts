@@ -1,4 +1,5 @@
 import "reflect-metadata";
+import express from "express";
 import { Sequelize } from "sequelize-typescript";
 import dotenv from "dotenv";
 import CityClass from "../models/cities.model";
