@@ -5,12 +5,10 @@ import {
   DataType,
   PrimaryKey,
   AutoIncrement,
-  HasOne,
   BelongsToMany,
 } from "sequelize-typescript";
 import ClientClass from "./clients.model";
 import ClientProduct from "./clientsProducts.model";
-import Stock from "./stock.model";
 
 @Table({ tableName: "products", timestamps: false })
 class ProductClass extends Model {
@@ -25,11 +23,11 @@ class ProductClass extends Model {
   @Column(DataType.DECIMAL(10, 2))
   price!: number;
 
+  @Column(DataType.INTEGER)
+  quantity!: number; // Añadimos la cantidad directamente en el producto
+
   @BelongsToMany(() => ClientClass, () => ClientProduct)
   clients!: ClientClass[];
-
-  @HasOne(() => Stock)
-  stock!: Stock;
 }
 
 export default ProductClass;

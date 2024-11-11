@@ -1,7 +1,7 @@
 // controllers/auth.controller.ts
 import { Request, Response } from "express";
 import UserClass from "../models/users.model";
-import jwt from "jsonwebtoken";
+import jwt from  "jsonwebtoken";
 import bcrypt from "bcryptjs";
 
 // Login con email y password

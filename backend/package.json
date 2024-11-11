@@ -11,7 +11,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@types/dotenv": "^6.1.1",
+    "@types/dotenv": "^8.2.3",
     "@types/express": "^5.0.0",
     "@types/express-validator": "^3.0.2",
     "@types/sequelize": "^4.28.20",
@@ -21,9 +21,13 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.7",
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.5",
     "express-validator": "^7.2.0",
-    "mysql2": "^3.11.3",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.11.4",
     "pg": "^8.13.1",
     "pg-hstore": "^2.3.4",
     "reflect-metadata": "^0.2.2",
