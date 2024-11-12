@@ -1,11 +1,14 @@
 import express from "express";
 import db from "./config/db";
-// Importa las rutas desde el archivo de rutas
-import { router } from "./routes/index.routes"; // Corregí el espaciado para mantener la consistencia
+import cors from "cors";
+import { router } from "./routes/index.routes"; 
 
 const server = express();
 
+const corsOptions = { origin: "http://localhost:3000", };
+
 // Configuración de middleware para parsear JSON y datos de formulario
+server.use(cors(corsOptions));
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 

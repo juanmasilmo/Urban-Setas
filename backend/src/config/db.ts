@@ -29,7 +29,7 @@ const db = new Sequelize({
   logging: false,
 });
 
-/*async function syncDatabase() {
+async function syncDatabase() {
   try {
     await db.sync({ force: true }); // Esta opción recreará las tablas a la fuerza
     console.log("¡Base de datos sincronizada y recreada con éxito!");
@@ -37,9 +37,9 @@ const db = new Sequelize({
     console.error("Error al sincronizar la base de datos:", error);
   }
 }
-syncDatabase();*///esta funcion fuerza la eliminacion de la base de datos
+syncDatabase();//esta funcion fuerza la eliminacion de la base de datos
 
-async function syncDatabase() {
+/*async function syncDatabase() {
   try {
     await db.sync({ alter: true }); // Esta opción actualizará las tablas sin eliminarlas
     console.log("¡Base de datos sincronizada y actualizada con éxito!");
@@ -48,7 +48,7 @@ async function syncDatabase() {
   }
 }
 
-syncDatabase();//esta funcion solo altera las tablas si es necesario
+syncDatabase();//esta funcion solo altera las tablas si es necesario*/
 
 
 

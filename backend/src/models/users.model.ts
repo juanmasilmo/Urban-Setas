@@ -5,12 +5,11 @@ import {
   DataType,
   PrimaryKey,
   AutoIncrement,
-  Unique,
-  Validate,
   ForeignKey,
   BelongsTo,
 } from "sequelize-typescript";
 import RolClass from "./roles.model";
+import ClientClass from "./clients.model"; // Importamos el modelo Client
 
 @Table({
   tableName: "users",
@@ -25,19 +24,9 @@ export default class UserClass extends Model<UserClass> {
   })
   idUser: number;
 
-  @Column({
-    type: DataType.STRING(100),
-    allowNull: false,
-  })
-  userName: string;
-
-  @Unique
-  @Validate({ isEmail: true })
-  @Column({
-    type: DataType.STRING(100),
-    allowNull: false,
-  })
-  email: string;
+  // Eliminamos userName y email, ya no serán necesarios en la tabla users.
+  // userName: string;
+  // email: string;
 
   @Column({
     type: DataType.STRING(100),
@@ -55,4 +44,15 @@ export default class UserClass extends Model<UserClass> {
 
   @BelongsTo(() => RolClass)
   role: RolClass;
+
+  // Nueva relación: un Usuario pertenece a un Cliente
+  @ForeignKey(() => ClientClass)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  idClient: number; // Clave foránea que referencia a ClientClass
+
+  @BelongsTo(() => ClientClass)
+  client: ClientClass; // Obtenemos los datos del cliente asociado
 }
