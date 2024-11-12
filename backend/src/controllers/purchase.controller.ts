@@ -1,5 +1,5 @@
 // controllers/purchase.controller.ts
-import { Request, Response } from "express";
+/*import { Request, Response } from "express";
 import ProductClass from "../models/products.model";
 
 // Confirmar compra
@@ -27,4 +27,4 @@ export const confirmPurchase = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({ error: (error as Error).message });
   }
-};
+};*/

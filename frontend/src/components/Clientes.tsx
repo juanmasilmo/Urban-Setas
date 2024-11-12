@@ -1,25 +1,30 @@
 import React, { useEffect, useState } from "react";
 
-interface Cliente {
-  nombre: string;
-  email: string;
-  telefono: string;
+interface Client {
+  idClient: number;
+  clientName: string;
+  clientLastname: string;
+  clientEmail: string;
+  clientPhone: string;
+  clientAddress: string;
+  idCity: number;
+  idProvince: number;
+  idCountry: number;
 }
 
-const Clientes: React.FC = () => {
-  const [clientes, setClientes] = useState<Cliente[]>([]);
+const ClientList: React.FC = () => {
+  const [clients, setClients] = useState<Client[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Llama al endpoint para obtener los datos de clientes
-    fetch("http://localhost:3000/api/clientes")
+    fetch("http://localhost:3000/api/clients")
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener los datos de clientes");
         }
         return response.json();
       })
-      .then((data) => setClientes(data))
+      .then((data) => setClients(data))
       .catch((error) => setError(error.message));
   }, []);
 
@@ -42,11 +47,13 @@ const Clientes: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {clientes.map((cliente, index) => (
+            {clients.map((client, index) => (
               <tr key={index}>
-                <td className="border p-2">{cliente.nombre}</td>
-                <td className="border p-2">{cliente.email}</td>
-                <td className="border p-2">{cliente.telefono}</td>
+                <td className="border p-2">
+                  {client.clientName} {client.clientLastname}
+                </td>
+                <td className="border p-2">{client.clientEmail}</td>
+                <td className="border p-2">{client.clientPhone}</td>
               </tr>
             ))}
           </tbody>
@@ -56,4 +63,4 @@ const Clientes: React.FC = () => {
   );
 };
 
-export default Clientes;
+export default ClientList;

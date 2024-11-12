@@ -1,14 +1,13 @@
 import express from "express";
 import db from "./config/db";
-import cors from "cors";
 import { router } from "./routes/index.routes"; 
+import corsMiddleware from './middleware/cors.middleware'
 
 const server = express();
 
-const corsOptions = { origin: "http://localhost:3000", };
-
 // Configuración de middleware para parsear JSON y datos de formulario
-server.use(cors(corsOptions));
+// Usar el middleware de CORS
+server.use(corsMiddleware);
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 

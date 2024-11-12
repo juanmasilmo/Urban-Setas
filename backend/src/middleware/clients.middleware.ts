@@ -6,7 +6,7 @@ import {
   validationResult,
   ValidationChain,
 } from "express-validator";
-import { Request, Response, NextFunction } from "express"; // Asegúrate de importar NextFunction
+import { Request, Response, NextFunction } from "express";
 
 // Validar los campos del cliente
 export const validateClient: ValidationChain[] = [
@@ -15,7 +15,7 @@ export const validateClient: ValidationChain[] = [
     .withMessage("El nombre del cliente debe ser una cadena")
     .notEmpty()
     .withMessage("El nombre del cliente no puede estar vacío"),
-  body("clientId") // Cambié 'clienteId' a 'clientId' para mantener la coherencia
+  body("clientId")
     .isNumeric()
     .withMessage("El ID del cliente debe ser un número")
     .notEmpty()
