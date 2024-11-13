@@ -24,10 +24,6 @@ export default class UserClass extends Model<UserClass> {
   })
   idUser: number;
 
-  // Eliminamos userName y email, ya no serán necesarios en la tabla users.
-  // userName: string;
-  // email: string;
-
   @Column({
     type: DataType.STRING(100),
     allowNull: false,
@@ -38,21 +34,21 @@ export default class UserClass extends Model<UserClass> {
   @ForeignKey(() => RolClass)
   @Column({
     type: DataType.INTEGER,
-    allowNull: false,
+    allowNull: true,
   })
-  idRol: number; // Clave foránea que referencia a RolClass
+  idRol: number;
 
   @BelongsTo(() => RolClass)
   role: RolClass;
 
-  // Nueva relación: un Usuario pertenece a un Cliente
+  // Relación: un Usuario pertenece a un Cliente (uno a uno)
   @ForeignKey(() => ClientClass)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
-  idClient: number; // Clave foránea que referencia a ClientClass
-
+  idClient: number;
+//pertenece a la clase clients
   @BelongsTo(() => ClientClass)
-  client: ClientClass; // Obtenemos los datos del cliente asociado
+  client: ClientClass;
 }

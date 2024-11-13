@@ -10,18 +10,20 @@ import {
   ForeignKey,
   BelongsTo,
   BelongsToMany,
+  HasOne,
 } from "sequelize-typescript";
 import CountryClass from "./countries.model";
 import ProvinceClass from "./provinces.model";
 import CityClass from "./cities.model";
 import ProductClass from "./products.model";
 import ClientProduct from "./clientsProducts.model";
+import UserClass from "./users.model";
 
 @Table({
   tableName: "clients",
   timestamps: false,
 })
-class Client extends Model {
+export default class ClientClass extends Model<ClientClass> {
   @PrimaryKey
   @AutoIncrement
   @Column({
@@ -98,6 +100,8 @@ class Client extends Model {
 
   @BelongsToMany(() => ProductClass, () => ClientProduct)
   products!: ProductClass[];
-}
 
-export default Client;
+  // Relación uno a uno con Usuario
+  @HasOne(() => UserClass)
+  user: UserClass;
+}

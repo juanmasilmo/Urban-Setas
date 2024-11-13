@@ -4,12 +4,22 @@ import {
   Model,
   ForeignKey,
   DataType,
+  PrimaryKey,
+  AutoIncrement,
 } from "sequelize-typescript";
 import ClientClass from "./clients.model";
 import ProductClass from "./products.model";
 
 @Table({ tableName: "client_products", timestamps: false })
 class ClientProduct extends Model {
+  @PrimaryKey
+  @AutoIncrement
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  idClientProduct!: number;
+
   @ForeignKey(() => ClientClass)
   @Column({
     type: DataType.INTEGER,
@@ -28,7 +38,14 @@ class ClientProduct extends Model {
     type: DataType.INTEGER,
     allowNull: false,
   })
-  quantity!: number;
+  quantitySold!: number;
+
+  @Column({
+    type: DataType.DATE,
+    allowNull: false,
+    defaultValue: DataType.NOW,
+  })
+  date!: Date;
 }
 
 export default ClientProduct;

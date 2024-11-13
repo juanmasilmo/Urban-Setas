@@ -28,7 +28,6 @@ export default class RolClass extends Model<RolClass> {
   })
   rolName: string;
 
-  // Relación: un Rol puede tener varios Usuarios
   @HasMany(() => UserClass)
   users: UserClass[];
 }
