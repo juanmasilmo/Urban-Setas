@@ -24,8 +24,9 @@ class ProductClass extends Model {
   price!: number;
 
   @Column(DataType.INTEGER)
-  quantity!: number; // Añadimos la cantidad directamente en el producto
+  quantity!: number;
 
+  // Relación muchos a muchos con clientes
   @BelongsToMany(() => ClientClass, () => ClientProduct)
   clients!: ClientClass[];
 }

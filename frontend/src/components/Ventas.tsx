@@ -4,7 +4,7 @@ interface Sale {
   idSale: number;
   productName: string;
   quantity: number;
-  date: Date;
+  date: string;
 }
 
 const Ventas: React.FC = () => {
@@ -22,6 +22,7 @@ const Ventas: React.FC = () => {
       .then((data) => setSale(data))
       .catch((error) => setError(error.message));
   }, []);
+
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -49,7 +50,9 @@ const Ventas: React.FC = () => {
                 <td className="border p-2">{sale.idSale}</td>
                 <td className="border p-2">{sale.productName}</td>
                 <td className="border p-2">{sale.quantity}</td>
-                <td className="border p-2">{sale.date.toLocaleDateString()}</td>
+                <td className="border p-2">
+                  {new Date(sale.date).toLocaleDateString()}
+                </td>{" "}
               </tr>
             ))}
           </tbody>
