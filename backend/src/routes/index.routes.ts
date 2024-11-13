@@ -7,6 +7,7 @@ import clientsRoutes from "./clients.routes";
 import rolRoutes from "./rol.routes";
 import userRoutes from "./user.routes";
 import productRoutes from "./products.routes"
+import clientProductRoutes from './clientProduct.routes'
 
 const router = Router();
 
@@ -18,5 +19,6 @@ router.use("/clients", clientsRoutes);
 router.use("/rol", rolRoutes);
 router.use("/user", userRoutes);
 router.use("/products", productRoutes);
+router.use("/client-products", clientProductRoutes );
 
 export { router };
