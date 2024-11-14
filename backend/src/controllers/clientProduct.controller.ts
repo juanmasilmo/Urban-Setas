@@ -6,14 +6,8 @@ import ProductClass from "../models/products.model";
 // Crear un nuevo registro de ClientProduct
 export const createClientProduct = async (req: Request, res: Response) => {
   try {
-    const { clientId, productId, quantitySold, date } = req.body;
-    const newClientProduct = await ClientProduct.create({
-      clientId,
-      productId,
-      quantitySold,
-      date,
-    });
-    res.status(201).json(newClientProduct);
+    const clientProduct = await ClientProduct.create(req.body);
+    res.status(201).json(clientProduct);
   } catch (error) {
     res.status(500).json({ error: "Error al crear el registro" });
   }
@@ -23,7 +17,7 @@ export const createClientProduct = async (req: Request, res: Response) => {
 export const getClientProducts = async (req: Request, res: Response) => {
   try {
     const clientProducts = await ClientProduct.findAll({
-      include: [ClientClass, ProductClass],
+      //include: [ClientClass, ProductClass],
     });
     res.status(200).json(clientProducts);
   } catch (error) {
