@@ -3,7 +3,9 @@ import { Request, Response, NextFunction, RequestHandler } from "express";
 
 // Validar los campos del producto del cliente
 export const validateClientProduct: RequestHandler[] = [
-  body("clientId").isInt().withMessage("El clientId debe ser un número entero"),
+  body("clientId")
+  .isInt()
+  .withMessage("El clientId debe ser un número entero"),
   body("productId")
     .isInt()
     .withMessage("El productId debe ser un número entero"),

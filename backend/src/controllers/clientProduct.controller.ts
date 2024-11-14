@@ -13,12 +13,35 @@ export const createClientProduct = async (req: Request, res: Response) => {
   }
 };
 
-// Obtener todos los registros de ClientProduct (con relaciones)
 export const getClientProducts = async (req: Request, res: Response) => {
   try {
     const clientProducts = await ClientProduct.findAll({
+<<<<<<< HEAD
       //include: [ClientClass, ProductClass],
+=======
+      include: [
+        {
+          model: ClientClass,
+          as: "client", // Usamos el alias configurado en ClientProduct
+          attributes: [
+            "idClient",
+            "clientName",
+            "clientLastname",
+            "clientEmail",
+            "clientPhone",
+            "clientAddress",
+          ],
+        },
+        {
+          model: ProductClass,
+          as: "product", // Usamos el alias configurado en ClientProduct
+          attributes: ["idProduct", "productName", "price"],
+        },
+      ],
+      attributes: ["quantitySold", "date"], // Atributos específicos de ClientProduct
+>>>>>>> 907908ac2844036f457f3c4a4ee0104f8677aea9
     });
+
     res.status(200).json(clientProducts);
   } catch (error) {
     res.status(500).json({ error: "Error al obtener los registros" });

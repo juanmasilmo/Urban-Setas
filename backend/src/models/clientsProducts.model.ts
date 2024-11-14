@@ -6,38 +6,27 @@ import {
   DataType,
   PrimaryKey,
   AutoIncrement,
+  BelongsTo,
 } from "sequelize-typescript";
 import ClientClass from "./clients.model";
 import ProductClass from "./products.model";
 
-@Table({ tableName: "client_products", timestamps: false })
+@Table({ tableName: "clientProducts", timestamps: false })
 class ClientProduct extends Model {
   @PrimaryKey
   @AutoIncrement
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
+  @Column(DataType.INTEGER)
   idClientProduct!: number;
 
   @ForeignKey(() => ClientClass)
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
+  @Column(DataType.INTEGER)
   clientId!: number;
 
   @ForeignKey(() => ProductClass)
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
+  @Column(DataType.INTEGER)
   productId!: number;
 
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
+  @Column(DataType.INTEGER)
   quantitySold!: number;
 
   @Column({
@@ -46,6 +35,14 @@ class ClientProduct extends Model {
     defaultValue: DataType.NOW,
   })
   date!: Date;
+
+  // Relación con ClientClass usando alias "client"
+  @BelongsTo(() => ClientClass, "clientId")
+  client!: ClientClass;
+
+  // Relación con ProductClass usando alias "product"
+  @BelongsTo(() => ProductClass, "productId")
+  product!: ProductClass;
 }
 
 export default ClientProduct;

@@ -26,82 +26,52 @@ import UserClass from "./users.model";
 export default class ClientClass extends Model<ClientClass> {
   @PrimaryKey
   @AutoIncrement
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
-  idClient: number;
+  @Column(DataType.INTEGER)
+  idClient!: number;
 
-  @Column({
-    type: DataType.STRING(100),
-    allowNull: false,
-  })
-  clientName: string;
+  @Column(DataType.STRING(100))
+  clientName!: string;
 
-  @Column({
-    type: DataType.STRING(100),
-    allowNull: false,
-  })
-  clientLastname: string;
+  @Column(DataType.STRING(100))
+  clientLastname!: string;
 
   @Unique
   @Validate({ isEmail: true })
-  @Column({
-    type: DataType.STRING(100),
-    allowNull: false,
-  })
-  clientEmail: string;
+  @Column(DataType.STRING(100))
+  clientEmail!: string;
 
   @Validate({ isNumeric: true })
-  @Column({
-    type: DataType.STRING(20),
-    allowNull: false,
-  })
-  clientPhone: string;
+  @Column(DataType.STRING(20))
+  clientPhone!: string;
 
-  @Column({
-    type: DataType.STRING(100),
-    allowNull: false,
-  })
-  clientAddress: string;
+  @Column(DataType.STRING(100))
+  clientAddress!: string;
 
-  // Relación con Ciudad
   @ForeignKey(() => CityClass)
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
-  idCity: number;
+  @Column(DataType.INTEGER)
+  idCity!: number;
 
   @BelongsTo(() => CityClass)
-  city: CityClass;
+  city!: CityClass;
 
-  // Relación con Provincia
   @ForeignKey(() => ProvinceClass)
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
-  idProvince: number;
+  @Column(DataType.INTEGER)
+  idProvince!: number;
 
   @BelongsTo(() => ProvinceClass)
-  province: ProvinceClass;
+  province!: ProvinceClass;
 
-  // Relación con País
   @ForeignKey(() => CountryClass)
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
-  idCountry: number;
+  @Column(DataType.INTEGER)
+  idCountry!: number;
 
   @BelongsTo(() => CountryClass)
-  country: CountryClass;
+  country!: CountryClass;
 
+  // Relación muchos a muchos con productos
   @BelongsToMany(() => ProductClass, () => ClientProduct)
   products!: ProductClass[];
 
-  // Relación uno a uno con Usuario
   @HasOne(() => UserClass)
-  user: UserClass;
+  user!: UserClass;
 }
