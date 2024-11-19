@@ -8,6 +8,7 @@ import Clientes from './components/Clientes';
 import Ajustes from './components/Ajustes';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import DiffComponent from "./components/imgs"
 
 const App: React.FC = () => {
   return (
@@ -17,6 +18,7 @@ const App: React.FC = () => {
         <div className="flex flex-1">
           <Sidebar />
           <div className="w-full p-6">
+            <DiffComponent />
             <Routes>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/productos" element={<Productos />} />

@@ -20,14 +20,12 @@ const Header: React.FC = () => {
         <img src={logo} alt="Logo" className=" w-20 h-0" />
       </div>
 
-      {/* Nombre de la tienda (centro) */}
       <div className="text-center">
         <span className="text-2xl font-bold font-serif tracking-wide">
           Urban Setas
         </span>
       </div>
 
-      {/* Login (derecha) */}
       <div className="flex justify-end items-center space-x-4">
         {!showLoginForm ? (
           <button
@@ -37,7 +35,7 @@ const Header: React.FC = () => {
             Login
           </button>
         ) : (
-          // Si está mostrando el formulario, muestra el modal de login
+
           <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">
             <div className="bg-white p-8 rounded-lg shadow-lg w-96">
               <h2 className="text-2xl font-semibold mb-4">Iniciar sesión</h2>
