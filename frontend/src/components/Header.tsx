@@ -16,9 +16,8 @@ const Header: React.FC = () => {
 
   return (
     <header className="grid grid-cols-3 items-center p-4 bg-blue-600 text-white">
-      {/* Logo (izquierda) */}
       <div className="flex items-center space-x-3">
-        <img src={logo} alt="Logo" className=" w-20 h-0"/>
+        <img src={logo} alt="Logo" className=" w-20 h-0" />
       </div>
 
       {/* Nombre de la tienda (centro) */}
